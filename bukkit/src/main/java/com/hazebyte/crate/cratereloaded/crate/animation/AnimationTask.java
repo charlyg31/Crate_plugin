@@ -48,7 +48,7 @@ public abstract class AnimationTask extends BukkitRunnable {
 
     public void sync() {
         this.timeLapsed += speed;
-        this.player.updateInventory();
+        // updateInventory() removed - deprecated and broken in Paper 26.x
 
         //        Messenger.info(timeLapsed + "/" + totalTicks + " " + iterations);
         int index = this.parent.speed.getIndex(this.timeLapsed);
