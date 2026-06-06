@@ -40,6 +40,7 @@ public class CsgoAnimationGenerator implements AnimationGenerator {
             var rewardV2 = CorePlugin.getJavaPluginComponent()
                     .getGenerateCratePrizeComponent()
                     .generateRewardForAnimation(player, crateV2);
+            if (rewardV2 == null) continue;
             long length = durationFormula(i);
 
             var frame = createAnimationFrame(rewardV2, length, frames);

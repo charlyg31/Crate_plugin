@@ -42,7 +42,7 @@ public class SupplyCrateListener implements Listener {
 
                 Map<String, Object> settings = new HashMap<String, Object>() {
                     {
-                        put("shouldRemoveItem", new Boolean(false));
+                        put("shouldRemoveItem", Boolean.FALSE);
                     }
                 };
                 CorePlugin.getPlugin().getCrateRegistrar().open(crate, player, location, settings);
