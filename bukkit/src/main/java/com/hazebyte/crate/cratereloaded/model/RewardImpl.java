@@ -239,7 +239,10 @@ public class RewardImpl implements Reward {
 
     @Override
     public boolean hasPostParsing() {
-        return this.line.getRewardString().contains("{random:")
+        if (this.line == null) return false;
+        String rs = this.line.getRewardString();
+        if (rs == null) return false;
+        return rs.contains("{random:")
                 || this.line.getRewardString().contains("{random-similar:");
     }
 
