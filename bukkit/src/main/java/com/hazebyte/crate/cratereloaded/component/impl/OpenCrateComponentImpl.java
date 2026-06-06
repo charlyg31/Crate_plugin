@@ -49,11 +49,14 @@ public class OpenCrateComponentImpl implements OpenCrateComponent {
         CrateV2 crateV2 = request.getCrateV2OrConvert();
 
         // Animation V2 (native CrateV2 usage!)
-        if (crateV2.getAnimationType() != null && crateV2.getAnimationType() == AnimationType.ROULETTE_V2) {
+        if (crateV2.getAnimationType() != null &&
+            (crateV2.getAnimationType() == AnimationType.ROULETTE_V2 || crateV2.getAnimationType() == AnimationType.ROULETTE)) {
             Animation animation = new RouletteAnimationGenerator().createAnimation(request.getPlayer(), crateV2);
             CorePlugin.getJavaPluginComponent().getAnimationManager().startAnimation(animation);
             return CrateOpenResponse.builder().build();
-        } else if (crateV2.getAnimationType() != null && crateV2.getAnimationType() == AnimationType.CSGO_V2) {
+        } else if (crateV2.getAnimationType() != null &&
+            (crateV2.getAnimationType() == AnimationType.CSGO_V2 || crateV2.getAnimationType() == AnimationType.CSGO
+            || crateV2.getAnimationType() == AnimationType.CSGO_REVERSE)) {
             Animation animation = new CsgoAnimationGenerator().createAnimation(request.getPlayer(), crateV2);
             CorePlugin.getJavaPluginComponent().getAnimationManager().startAnimation(animation);
             return CrateOpenResponse.builder().build();

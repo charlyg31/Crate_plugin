@@ -107,7 +107,7 @@ public class Menu {
             if (inventory.getHolder() instanceof MenuHolder
                     && ((MenuHolder) inventory.getHolder()).getMenu().equals(this)) {
                 apply(inventory, player);
-                player.updateInventory();
+                // updateInventory() removed - deprecated in Paper 26.x
             }
         }
     }
@@ -132,7 +132,7 @@ public class Menu {
                 if (itemClickEvent.willUpdate()) {
                     update(player);
                 } else {
-                    player.updateInventory();
+                    // updateInventory() removed - deprecated in Paper 26.x
                     if (itemClickEvent.willClose()) {
                         close(player);
                     } else if (itemClickEvent.willGoBack()) {

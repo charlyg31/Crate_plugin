@@ -9,7 +9,7 @@ public interface CommonMapperUtil {
 
     @Named("wrapOptional")
     default <T> Optional<T> wrapOptional(T object) {
-        return Optional.of(object);
+        return Optional.ofNullable(object);
     }
 
     @Named("unwrap")

@@ -28,7 +28,7 @@ public class InventoryManager {
         if (optional.isPresent()) {
             player.openInventory(optional.get());
         } else {
-            Inventory inventory = Bukkit.createInventory(null, inventoryV2.getInventorySize(), inventoryV2.getTitle());
+            Inventory inventory = Bukkit.createInventory(null, inventoryV2.getInventorySize(), inventoryV2.getTitle() != null ? inventoryV2.getTitle() : "");
             reverseInventoryMap.put(inventoryV2, inventory);
             inventoryMap.put(inventory, inventoryV2);
             player.openInventory(inventory);

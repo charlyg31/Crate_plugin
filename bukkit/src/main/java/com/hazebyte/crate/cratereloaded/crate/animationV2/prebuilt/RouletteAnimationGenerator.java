@@ -8,7 +8,9 @@ import com.hazebyte.crate.cratereloaded.model.RewardV2;
 import com.hazebyte.crate.cratereloaded.util.RandomGlassPaneGenerator;
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class RouletteAnimationGenerator implements AnimationGenerator {
 
@@ -54,7 +56,7 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
         var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         for (int i = 0; i < 27; i++) {
             if (i == MIDDLE_SLOT) {
-                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().get());
+                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)));
             } else {
                 animationFrameBuilder.itemMapping(i, RandomGlassPaneGenerator.getRandomPane());
             }
@@ -67,7 +69,7 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
         var staticPane = RandomGlassPaneGenerator.getRandomPane();
         for (int i = 0; i < 27; i++) {
             if (i == MIDDLE_SLOT) {
-                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().get());
+                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)));
             } else {
                 animationFrameBuilder.itemMapping(i, staticPane);
             }

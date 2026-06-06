@@ -131,7 +131,7 @@ public class PlayerUtil {
      * @param player
      */
     public static void refreshInventory(final Player player) {
-        Bukkit.getScheduler().runTask(CorePlugin.getPlugin(), () -> player.updateInventory());
+        // updateInventory() removed - deprecated in Paper 26.x
     }
 
     /**

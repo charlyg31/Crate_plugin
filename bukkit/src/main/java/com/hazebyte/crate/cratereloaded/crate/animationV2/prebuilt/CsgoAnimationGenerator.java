@@ -9,7 +9,9 @@ import com.hazebyte.crate.cratereloaded.util.InventoryConstants;
 import com.hazebyte.crate.cratereloaded.util.RandomGlassPaneGenerator;
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class CsgoAnimationGenerator implements AnimationGenerator {
 
@@ -57,7 +59,7 @@ public class CsgoAnimationGenerator implements AnimationGenerator {
         var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         for (int i = 0; i < 27; i++) {
             if (i == 9) {
-                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().get());
+                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)));
             } else if (i > 9 && i <= 17) {
                 if (currentFrames.size() > 0) {
                     AnimationFrame previousFrame = currentFrames.get(currentFrames.size() - 1);
@@ -75,7 +77,7 @@ public class CsgoAnimationGenerator implements AnimationGenerator {
         var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         for (int i = 0; i < 27; i++) {
             if (i == InventoryConstants.CENTER_SLOT_THREE_ROWS) {
-                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().get());
+                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)));
             } else {
                 animationFrameBuilder.itemMapping(i, RandomGlassPaneGenerator.getRandomPane());
             }
