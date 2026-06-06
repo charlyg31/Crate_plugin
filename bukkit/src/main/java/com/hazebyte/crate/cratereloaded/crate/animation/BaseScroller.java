@@ -66,8 +66,8 @@ public abstract class BaseScroller extends Animation {
 
         crate.runEffect(location, Category.OPEN, player);
 
-        task(inventory, player, rewards, location).run();
         player.openInventory(inventory);
+        task(inventory, player, rewards, location).run();
         return inventory;
     }
 
