@@ -1,7 +1,6 @@
 package com.hazebyte.crate.cratereloaded.util;
 
 import java.util.Optional;
-import lombok.NonNull;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,11 +15,11 @@ public class ItemCalculatorUtil {
      * @param item
      * @return the number of slots needed for an itemstack.
      */
-    public static int getNumberOfSlotsRequired(@NonNull ItemStack item) {
+    public static int getNumberOfSlotsRequired(ItemStack item) {
         return getNumberOfSlotsRequired(item, STACK_SIZE);
     }
 
-    private static int getNumberOfSlotsRequired(@NonNull ItemStack item, int stackSize) {
+    private static int getNumberOfSlotsRequired(ItemStack item, int stackSize) {
         int maxStackSize = stackSize;
         int amount = item.getAmount();
         return (int) Math.ceil((double) amount / maxStackSize);
@@ -40,7 +39,7 @@ public class ItemCalculatorUtil {
      * @return the amount of items that have not been given to the player.
      */
     public static Optional<ItemStack> putItemsIntoInventory(
-            @NonNull final Player player, @NonNull final ItemStack item) {
+            final Player player, final ItemStack item) {
         final ItemStack cloned = item.clone();
         final int numberOfSlotsRequired = getNumberOfSlotsRequired(cloned, STACK_SIZE);
         final int numberOfSlotsEmpty = PlayerUtil.getSlotsLeft(player);

@@ -8,13 +8,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 public class RewardFormat extends Format {
 
     private final DecimalFormat format;
 
-    public RewardFormat(@NotNull String message) {
+    public RewardFormat(String message) {
         super(message);
         format = new DecimalFormat(CorePlugin.getPlugin().getSettings().getDecimalFormat());
     }
@@ -30,7 +29,7 @@ public class RewardFormat extends Format {
         return message;
     }
 
-    public String format(@NotNull Reward reward) {
+    public String format(Reward reward) {
         if (!(reward instanceof RewardImpl)) { // It is a legacy reward.
             return message;
         }

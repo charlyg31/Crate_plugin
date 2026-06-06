@@ -5,4 +5,4 @@ author: dinosaur
 website: crate.hazebyte.com
 depend:
 softdepend: [Essentials, Vault, HolographicDisplays, Holograms, Citizens, Multiverse-Core, PlaceholderAPI, CMI, DecentHolograms]
-api-version: 1.13
+api-version: 26.1

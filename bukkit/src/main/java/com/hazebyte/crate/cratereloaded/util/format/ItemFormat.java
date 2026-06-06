@@ -6,11 +6,10 @@ import com.hazebyte.crate.utils.WordUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 public class ItemFormat extends Format {
 
-    public ItemFormat(@NotNull String message) {
+    public ItemFormat(String message) {
         super(message);
     }
 

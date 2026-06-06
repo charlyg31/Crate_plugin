@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
-import lombok.val;
 import org.bukkit.entity.Player;
 
 public class GenerateCratePrizeComponentImpl implements GenerateCratePrizeComponent {
@@ -72,8 +71,8 @@ public class GenerateCratePrizeComponentImpl implements GenerateCratePrizeCompon
         rules.add(reward ->
                 reward.getExclusivePermissions().stream().allMatch(permission -> player.hasPermission(permission)));
         rules.add(reward -> reward.getChance() > 0);
-        val rewardPool = generateRewardComponent.createPrizePoolV2(crateV2.getRewards(), rules);
-        val rewardV2 = generateRewardComponent.generatePrizeV2(rewardPool);
+        var rewardPool = generateRewardComponent.createPrizePoolV2(crateV2.getRewards(), rules);
+        var rewardV2 = generateRewardComponent.generatePrizeV2(rewardPool);
         return rewardV2;
     }
 

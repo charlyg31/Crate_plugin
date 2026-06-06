@@ -8,16 +8,15 @@ import com.hazebyte.crate.cratereloaded.model.CrateV2;
 import com.hazebyte.crate.cratereloaded.model.RewardV2;
 import java.util.List;
 import java.util.Set;
-import lombok.NonNull;
 import org.bukkit.entity.Player;
 
 public interface OpenCrateComponent {
 
-    CrateOpenResponse openCrate(@NonNull CrateOpenRequest request);
+    CrateOpenResponse openCrate(CrateOpenRequest request);
 
-    Set<RewardExecutorResult> executeReward(@NonNull Player player, @NonNull Reward reward);
+    Set<RewardExecutorResult> executeReward(Player player, Reward reward);
 
-    void executeRewardV2(@NonNull Player player, @NonNull RewardV2 rewardV2);
+    void executeRewardV2(Player player, RewardV2 rewardV2);
 
-    void executeCrateV2Message(@NonNull Player player, @NonNull CrateV2 crateV2, @NonNull List<Reward> rewards);
+    void executeCrateV2Message(Player player, CrateV2 crateV2, List<Reward> rewards);
 }

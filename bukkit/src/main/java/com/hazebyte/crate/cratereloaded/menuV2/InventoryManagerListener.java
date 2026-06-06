@@ -1,6 +1,5 @@
 package com.hazebyte.crate.cratereloaded.menuV2;
 
-import lombok.NonNull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -15,7 +14,7 @@ public class InventoryManagerListener implements Listener {
     private InventoryHistoryManager inventoryHistoryManager;
 
     public InventoryManagerListener(
-            @NonNull InventoryManager inventoryManager, @NonNull InventoryHistoryManager inventoryHistoryManager) {
+            InventoryManager inventoryManager, InventoryHistoryManager inventoryHistoryManager) {
         this.inventoryManager = inventoryManager;
         this.inventoryHistoryManager = inventoryHistoryManager;
     }

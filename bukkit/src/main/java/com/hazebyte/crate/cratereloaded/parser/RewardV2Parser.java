@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import lombok.NonNull;
-import lombok.extern.java.Log;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,9 +19,10 @@ import org.bukkit.inventory.ItemStack;
  * Parses reward configurations into RewardV2 data models.
  * Handles both modern V2 format and legacy reward string format.
  */
-@Log
 @Singleton
 public class RewardV2Parser {
+    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("RewardV2Parser");
+
 
     @Inject
     public RewardV2Parser() {}
@@ -36,7 +35,7 @@ public class RewardV2Parser {
      * @return List of parsed RewardV2 objects
      */
     public List<RewardV2> parseRewardsFromStringList(
-            @NonNull ConfigurationSection section, @NonNull String crateName) {
+            ConfigurationSection section, String crateName) {
         List<String> rewardList = section.getStringList("reward.rewards");
         List<RewardV2> rewards = new ArrayList<>();
 
@@ -62,7 +61,7 @@ public class RewardV2Parser {
      * @return Parsed RewardV2 object
      * @throws ValidationException if parsing fails
      */
-    private RewardV2 parseRewardFromString(@NonNull String rewardString) throws ValidationException {
+    private RewardV2 parseRewardFromString(String rewardString) throws ValidationException {
         // Legacy string format - use existing RewardImpl parser and convert to V2
         // This maintains backwards compatibility with legacy crate configs
         try {
@@ -79,7 +78,7 @@ public class RewardV2Parser {
      * @param rewardsSection Configuration section containing reward definitions
      * @return List of parsed RewardV2 objects
      */
-    public List<RewardV2> parseRewardsFromSection(@NonNull ConfigurationSection rewardsSection) {
+    public List<RewardV2> parseRewardsFromSection(ConfigurationSection rewardsSection) {
         List<RewardV2> rewards = new ArrayList<>();
 
         for (String key : rewardsSection.getKeys(false)) {
@@ -103,7 +102,7 @@ public class RewardV2Parser {
      * @param section Configuration section for the reward
      * @return Parsed RewardV2 object
      */
-    private RewardV2 parseRewardFromSection(@NonNull ConfigurationSection section) {
+    private RewardV2 parseRewardFromSection(ConfigurationSection section) {
         return RewardV2.builder()
                 .displayItem(parseOptionalDisplayItem(section))
                 .chance(section.getDouble("chance", 0.0))
@@ -121,7 +120,7 @@ public class RewardV2Parser {
     /**
      * Parses optional display item for the reward.
      */
-    private Optional<ItemStack> parseOptionalDisplayItem(@NonNull ConfigurationSection section) {
+    private Optional<ItemStack> parseOptionalDisplayItem(ConfigurationSection section) {
         if (!section.isSet("display-item")) {
             return Optional.empty();
         }
@@ -139,7 +138,7 @@ public class RewardV2Parser {
     /**
      * Parses list of items from configuration section.
      */
-    private List<ItemStack> parseItems(@NonNull ConfigurationSection section) {
+    private List<ItemStack> parseItems(ConfigurationSection section) {
         if (!section.isSet("items")) {
             return Collections.emptyList();
         }
@@ -182,7 +181,7 @@ public class RewardV2Parser {
     /**
      * Parses command list from configuration section.
      */
-    private List<String> parseCommands(@NonNull ConfigurationSection section) {
+    private List<String> parseCommands(ConfigurationSection section) {
         if (!section.isSet("commands")) {
             return Collections.emptyList();
         }
@@ -198,7 +197,7 @@ public class RewardV2Parser {
     /**
      * Parses message list from configuration section.
      */
-    private List<String> parseMessages(@NonNull ConfigurationSection section, @NonNull String key) {
+    private List<String> parseMessages(ConfigurationSection section, String key) {
         if (!section.isSet(key)) {
             return Collections.emptyList();
         }

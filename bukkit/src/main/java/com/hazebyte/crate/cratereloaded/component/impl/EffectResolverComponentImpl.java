@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import lombok.NonNull;
 import org.bukkit.configuration.ConfigurationSection;
 
 /**
@@ -28,7 +27,7 @@ public class EffectResolverComponentImpl implements EffectResolverComponent {
     private final EffectServiceComponent effectService;
 
     @Inject
-    public EffectResolverComponentImpl(@NonNull EffectServiceComponent effectService) {
+    public EffectResolverComponentImpl(EffectServiceComponent effectService) {
         this.effectService = effectService;
     }
 

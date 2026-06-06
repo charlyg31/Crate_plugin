@@ -28,8 +28,6 @@ import java.util.Set;
 import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import lombok.NonNull;
-import lombok.extern.java.Log;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
@@ -37,9 +35,10 @@ import org.bukkit.inventory.ItemStack;
  * Parses YAML crate configurations directly into CrateV2 data models.
  * This parser creates pure data models without service dependencies.
  */
-@Log
 @Singleton
 public class YamlCrateV2ParserImpl {
+    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("YamlCrateV2ParserImpl");
+
 
     // Config Keys
     private static final String BUY_COST = "buy.cost";
@@ -63,10 +62,10 @@ public class YamlCrateV2ParserImpl {
 
     @Inject
     public YamlCrateV2ParserImpl(
-            @NonNull CorePlugin plugin,
-            @NonNull RewardV2Parser rewardParser,
-            @NonNull CrateValidatorImpl crateValidator,
-            @NonNull PluginSettingComponent settings) {
+            CorePlugin plugin,
+            RewardV2Parser rewardParser,
+            CrateValidatorImpl crateValidator,
+            PluginSettingComponent settings) {
         this.plugin = plugin;
         this.settings = settings;
         this.rewardParser = rewardParser;
@@ -79,7 +78,7 @@ public class YamlCrateV2ParserImpl {
      * @param config Configuration storage
      * @return List of parsed CrateV2 objects
      */
-    public List<CrateV2> parse(@NonNull Config config) {
+    public List<CrateV2> parse(Config config) {
         log.fine(String.format("Reading Crate Config File (V2): %s", config.getFile().getName()));
 
         if (config.getConfig() == null) {
@@ -115,7 +114,7 @@ public class YamlCrateV2ParserImpl {
      * @param config Configuration storage
      * @return Parsed CrateV2 object
      */
-    public CrateV2 parseCrate(@NonNull String crateName, @NonNull Config config) {
+    public CrateV2 parseCrate(String crateName, Config config) {
         ConfigurationSection section = config.getConfig().getConfigurationSection(crateName);
 
         if (section == null) {
@@ -170,11 +169,11 @@ public class YamlCrateV2ParserImpl {
         }
     }
 
-    private String parseUUID(@NonNull ConfigurationSection section) {
+    private String parseUUID(ConfigurationSection section) {
         return section.getString("uuid", UUID.randomUUID().toString());
     }
 
-    private Optional<String> parseOptionalDisplayName(@NonNull ConfigurationSection section) {
+    private Optional<String> parseOptionalDisplayName(ConfigurationSection section) {
         String displayName = section.getString(DISPLAY_NAME);
         if (displayName == null || displayName.isEmpty()) {
             return Optional.empty();
@@ -183,7 +182,7 @@ public class YamlCrateV2ParserImpl {
     }
 
     private Optional<ItemStack> parseOptionalDisplayItem(
-            @NonNull ConfigurationSection section, @NonNull String crateName) {
+            ConfigurationSection section, String crateName) {
         if (!section.isSet(DISPLAY_ITEM)) {
             return Optional.empty();
         }
@@ -198,7 +197,7 @@ public class YamlCrateV2ParserImpl {
         }
     }
 
-    private CrateType parseCrateType(@NonNull ConfigurationSection section) {
+    private CrateType parseCrateType(ConfigurationSection section) {
         String typeString = section.getString("type", "KEY").toUpperCase();
 
         try {
@@ -209,7 +208,7 @@ public class YamlCrateV2ParserImpl {
         }
     }
 
-    private AnimationType parseAnimationType(@NonNull ConfigurationSection section) {
+    private AnimationType parseAnimationType(ConfigurationSection section) {
         String animationString = section.getString("animation", "none");
         AnimationType animationType = TypeTranslator.translateAnimation(animationString);
 
@@ -221,7 +220,7 @@ public class YamlCrateV2ParserImpl {
         return animationType;
     }
 
-    private EndAnimationType parseEndAnimationType(@NonNull ConfigurationSection section) {
+    private EndAnimationType parseEndAnimationType(ConfigurationSection section) {
         String endAnimationString = section.getString("end-animation", "BLANK");
         EndAnimationType endAnimationType = TypeTranslator.translateEndAnimation(endAnimationString);
 
@@ -233,7 +232,7 @@ public class YamlCrateV2ParserImpl {
         return endAnimationType;
     }
 
-    private ItemStack parseCrateItem(@NonNull ConfigurationSection section, @NonNull String crateName) {
+    private ItemStack parseCrateItem(ConfigurationSection section, String crateName) {
         String itemString = section.getString("item");
         if (itemString == null || itemString.isEmpty()) {
             log.warning(String.format("Crate [%s] has no item defined", crateName));
@@ -251,15 +250,15 @@ public class YamlCrateV2ParserImpl {
         }
     }
 
-    private List<String> parseOpenMessage(@NonNull ConfigurationSection section) {
+    private List<String> parseOpenMessage(ConfigurationSection section) {
         return parseMessageList(section, MESSAGE_OPEN);
     }
 
-    private List<String> parseBroadcastMessage(@NonNull ConfigurationSection section) {
+    private List<String> parseBroadcastMessage(ConfigurationSection section) {
         return parseMessageList(section, MESSAGE_BROADCAST);
     }
 
-    private List<String> parseMessageList(@NonNull ConfigurationSection section, @NonNull String key) {
+    private List<String> parseMessageList(ConfigurationSection section, String key) {
         if (!section.isSet(key)) {
             return Collections.emptyList();
         }
@@ -272,11 +271,11 @@ public class YamlCrateV2ParserImpl {
         }
     }
 
-    private ItemStack parseAcceptButton(@NonNull ConfigurationSection section) {
+    private ItemStack parseAcceptButton(ConfigurationSection section) {
         return parseButton(section, CONFIRMATION_ACCEPT_BUTTON, settings.getClaimAcceptButton());
     }
 
-    private ItemStack parseDeclineButton(@NonNull ConfigurationSection section) {
+    private ItemStack parseDeclineButton(ConfigurationSection section) {
         return parseButton(section, CONFIRMATION_DECLINE_BUTTON, settings.getClaimDeclineButton());
     }
 
@@ -289,7 +288,7 @@ public class YamlCrateV2ParserImpl {
      * @return Parsed or default button
      */
     private ItemStack parseButton(
-            @NonNull ConfigurationSection section, @NonNull String key, ItemStack defaultButton) {
+            ConfigurationSection section, String key, ItemStack defaultButton) {
         if (!section.isSet(key)) {
             return defaultButton;
         }
@@ -303,7 +302,7 @@ public class YamlCrateV2ParserImpl {
         }
     }
 
-    private List<RewardV2> parseRewards(@NonNull ConfigurationSection section, @NonNull String crateName) {
+    private List<RewardV2> parseRewards(ConfigurationSection section, String crateName) {
         // Check for modern V2 format first (rewards as sections)
         if (section.isConfigurationSection("rewards")) {
             ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
@@ -319,7 +318,7 @@ public class YamlCrateV2ParserImpl {
         return Collections.emptyList();
     }
 
-    private List<RewardV2> parseConstantRewards(@NonNull ConfigurationSection section, @NonNull String crateName) {
+    private List<RewardV2> parseConstantRewards(ConfigurationSection section, String crateName) {
         if (!section.isConfigurationSection("constant-rewards")) {
             return Collections.emptyList();
         }
@@ -328,7 +327,7 @@ public class YamlCrateV2ParserImpl {
         return rewardParser.parseRewardsFromSection(constantRewardsSection);
     }
 
-    private List<String> parseHolographicText(@NonNull ConfigurationSection section) {
+    private List<String> parseHolographicText(ConfigurationSection section) {
         if (!section.isSet(HOLOGRAPHIC_TEXT)) {
             return Collections.emptyList();
         }
@@ -346,7 +345,7 @@ public class YamlCrateV2ParserImpl {
      * @return Map of Category to effect configuration keys
      */
     private Map<Category, List<String>> parseEffects(
-            @NonNull ConfigurationSection section, @NonNull String crateName) {
+            ConfigurationSection section, String crateName) {
         Map<Category, List<String>> effectMap = new HashMap<>();
 
         if (!section.isSet("effect")) {

@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
-import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -45,7 +44,7 @@ public class OpenCrateComponentImpl implements OpenCrateComponent {
         this.givePlayerItemsComponent = givePlayerItemsComponent;
     }
     @Override
-    public CrateOpenResponse openCrate(@NonNull CrateOpenRequest request) {
+    public CrateOpenResponse openCrate(CrateOpenRequest request) {
         // Get CrateV2 (primary) - no conversion needed!
         CrateV2 crateV2 = request.getCrateV2OrConvert();
 
@@ -88,7 +87,7 @@ public class OpenCrateComponentImpl implements OpenCrateComponent {
     }
 
     @Override
-    public Set<RewardExecutorResult> executeReward(@NonNull Player player, @NonNull Reward reward) {
+    public Set<RewardExecutorResult> executeReward(Player player, Reward reward) {
         Set<RewardExecutorResult> rewardResults = new HashSet<>();
 
         /* Give items */
@@ -111,7 +110,7 @@ public class OpenCrateComponentImpl implements OpenCrateComponent {
     }
 
     @Override
-    public void executeRewardV2(@NonNull Player player, @NonNull RewardV2 rewardV2) {
+    public void executeRewardV2(Player player, RewardV2 rewardV2) {
         /* Give items */
         givePlayerItemsComponent.giveItems(rewardV2.getItems(), player);
 
@@ -133,7 +132,7 @@ public class OpenCrateComponentImpl implements OpenCrateComponent {
     }
 
     @Override
-    public void executeCrateV2Message(@NonNull Player player, @NonNull CrateV2 crateV2, @NonNull List<Reward> rewards) {
+    public void executeCrateV2Message(Player player, CrateV2 crateV2, List<Reward> rewards) {
         crateV2.getBroadcastMessage().stream()
                 .filter(s -> !Strings.isNullOrEmpty(s))
                 .map(s -> CustomFormat.format(s, player))

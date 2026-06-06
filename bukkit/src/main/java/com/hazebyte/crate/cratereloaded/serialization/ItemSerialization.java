@@ -12,7 +12,6 @@ import com.hazebyte.util.Mat;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import java.util.Map;
-import lombok.NonNull;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -37,16 +36,16 @@ public class ItemSerialization {
     public static final String COLOR = "color";
     public static final String TAG = "tag";
 
-    private static StringBuilder appendData(@NonNull StringBuilder stringBuilder, @NonNull Object data) {
+    private static StringBuilder appendData(StringBuilder stringBuilder, Object data) {
         return stringBuilder.append(data).append(" ");
     }
 
     private static StringBuilder appendData(
-            @NonNull StringBuilder stringBuilder, @NonNull String key, @NonNull Object data) {
+            StringBuilder stringBuilder, String key, Object data) {
         return stringBuilder.append(String.format("%s:", key)).append(data).append(" ");
     }
 
-    private static void appendItemMeta(@NonNull StringBuilder stringBuilder, @NonNull ItemStack item) {
+    private static void appendItemMeta(StringBuilder stringBuilder, ItemStack item) {
         if (!item.hasItemMeta()) {
             return;
         }
@@ -91,7 +90,7 @@ public class ItemSerialization {
     }
 
     private static void appendPotionOrTippedArrowMeta(
-            @NonNull StringBuilder stringBuilder, @NonNull ItemStack itemStack) {
+            StringBuilder stringBuilder, ItemStack itemStack) {
         if (!isPotion(itemStack) && !isTippedArrow(itemStack)) {
             return;
         }
@@ -128,7 +127,7 @@ public class ItemSerialization {
         //        }
     }
 
-    private static void appendColorData(@NonNull StringBuilder stringBuilder, @NonNull ItemStack itemStack) {
+    private static void appendColorData(StringBuilder stringBuilder, ItemStack itemStack) {
         Material material = itemStack.getType();
         switch (material) {
             case LEATHER_HELMET:
@@ -150,7 +149,7 @@ public class ItemSerialization {
         }
     }
 
-    private static void appendNbtData(@NonNull StringBuilder stringBuilder, @NonNull ItemStack itemStack) {
+    private static void appendNbtData(StringBuilder stringBuilder, ItemStack itemStack) {
         if (CorePlugin.getPlugin().getServerVersion().isMockServer()) {
             return;
         }
@@ -165,7 +164,7 @@ public class ItemSerialization {
         }
     }
 
-    public static String serialize(@NonNull ItemStack item) {
+    public static String serialize(ItemStack item) {
         StringBuilder stringBuilder = new StringBuilder();
         Material material = item.getType();
 

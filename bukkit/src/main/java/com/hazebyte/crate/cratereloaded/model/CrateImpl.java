@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
-import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -50,8 +49,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-@Log
 public class CrateImpl implements Crate {
+    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("CrateImpl");
+
 
     /** Maximum number of slots in an inventory (9 columns × 6 rows) */
     private static final int MAX_INVENTORY_SLOTS = 54;

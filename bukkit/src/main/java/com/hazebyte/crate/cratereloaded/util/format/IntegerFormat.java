@@ -1,10 +1,9 @@
 package com.hazebyte.crate.cratereloaded.util.format;
 
-import org.jetbrains.annotations.NotNull;
 
 public class IntegerFormat extends Format {
 
-    public IntegerFormat(@NotNull String message) {
+    public IntegerFormat(String message) {
         super(message);
     }
 
@@ -16,7 +15,7 @@ public class IntegerFormat extends Format {
         return message;
     }
 
-    public String format(@NotNull Integer number) {
+    public String format(Integer number) {
         message = message.replace("{number}", Integer.toString(number));
         return message;
     }

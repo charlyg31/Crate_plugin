@@ -20,8 +20,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import lombok.NonNull;
-import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -34,7 +32,7 @@ public class AnimationManager {
     private final ClaimExecutor claimExecutor;
     private final Map<UUID, AnimationExecution> ongoingAnimations;
 
-    public AnimationManager(@NonNull JavaPlugin plugin, @NonNull CorePlugin corePlugin, @NonNull ClaimExecutor claimExecutor) {
+    public AnimationManager(JavaPlugin plugin, CorePlugin corePlugin, ClaimExecutor claimExecutor) {
         this.plugin = plugin;
         this.corePlugin = corePlugin;
         this.claimExecutor = claimExecutor;
@@ -60,7 +58,7 @@ public class AnimationManager {
                         FIVE_MINUTES_TICKS);
     }
 
-    public void startAnimation(@NonNull Animation animation) {
+    public void startAnimation(Animation animation) {
         UUID playerId = animation.getPlayer().getUniqueId();
         if (ongoingAnimations.containsKey(playerId)) {
             AnimationExecution animationExecution = ongoingAnimations.get(playerId);
@@ -76,7 +74,7 @@ public class AnimationManager {
         ongoingAnimations.put(playerId, animationExecution);
     }
 
-    public void onInventoryClose(@NonNull InventoryCloseEvent event) {
+    public void onInventoryClose(InventoryCloseEvent event) {
         if (!(event.getPlayer() instanceof Player)) {
             return;
         }
@@ -108,7 +106,7 @@ public class AnimationManager {
         }
     }
 
-    public void onAnimationClose(@NonNull AnimationCloseEvent event) {
+    public void onAnimationClose(AnimationCloseEvent event) {
         List<Reward> rewards =
                 CorePlugin.REWARD_MAPPER.toImplementation(event.getAnimation().getWinningRewards()).stream()
                         .map(reward -> (Reward) reward)
@@ -151,10 +149,10 @@ public class AnimationManager {
         }
     }
 
-    public void onFrameChange(@NonNull AnimationFrameChangeEvent event) {
-        val crate = corePlugin.getCrateRegistrar()
+    public void onFrameChange(AnimationFrameChangeEvent event) {
+        var crate = corePlugin.getCrateRegistrar()
                 .getCrate(event.getAnimation().getCrateV2().getCrateName());
-        val player = event.getAnimation().getPlayer();
+        var player = event.getAnimation().getPlayer();
         if (event.getCurrentFrameIndex() == event.getAnimation().getFrames().size()) {
             crate.runEffect(player.getLocation(), Category.END, player);
         } else {

@@ -21,7 +21,6 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoSet;
 import javax.inject.Singleton;
-import lombok.NonNull;
 import org.bukkit.event.Listener;
 
 @Module
@@ -30,7 +29,7 @@ public class BukkitListenerModule {
     @Provides
     @Singleton
     public InventoryManagerListener provideInventoryManagerListener(
-            @NonNull InventoryManager inventoryManager, @NonNull InventoryHistoryManager inventoryHistoryManager) {
+            InventoryManager inventoryManager, InventoryHistoryManager inventoryHistoryManager) {
         return new InventoryManagerListener(inventoryManager, inventoryHistoryManager);
     }
 
@@ -58,42 +57,42 @@ public class BukkitListenerModule {
     @Provides
     @Singleton
     @IntoSet
-    public Listener provideRightClickListener(@NonNull PluginSettingComponent settings) {
+    public Listener provideRightClickListener(PluginSettingComponent settings) {
         return new RightClickListener(settings);
     }
 
     @Provides
     @Singleton
     @IntoSet
-    public Listener provideCreativeInventoryListener(@NonNull PluginSettingComponent settings) {
+    public Listener provideCreativeInventoryListener(PluginSettingComponent settings) {
         return new CreativeInventoryListener(settings);
     }
 
     @Provides
     @Singleton
     @IntoSet
-    public Listener provideItemFrameListener(@NonNull PluginSettingComponent settings) {
+    public Listener provideItemFrameListener(PluginSettingComponent settings) {
         return new ItemFrameListener(settings);
     }
 
     @Provides
     @Singleton
     @IntoSet
-    public Listener provideCraftListener(@NonNull PluginSettingComponent settings) {
+    public Listener provideCraftListener(PluginSettingComponent settings) {
         return new CraftListener(settings);
     }
 
     @Provides
     @Singleton
     @IntoSet
-    public Listener provideInventoryListener(@NonNull PluginSettingComponent settings) {
+    public Listener provideInventoryListener(PluginSettingComponent settings) {
         return new InventoryListener(settings);
     }
 
     @Provides
     @Singleton
     @IntoSet
-    public Listener provideShulkerBoxListener(@NonNull PluginSettingComponent settings) {
+    public Listener provideShulkerBoxListener(PluginSettingComponent settings) {
         return new ShulkerBoxListener(settings);
     }
 
@@ -128,7 +127,7 @@ public class BukkitListenerModule {
     @Provides
     @Singleton
     @IntoSet
-    public Listener provideClaimMessageListener(@NonNull PluginSettingComponent settings) {
+    public Listener provideClaimMessageListener(PluginSettingComponent settings) {
         return new ClaimMessageListener(settings);
     }
 }

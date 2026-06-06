@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
-import lombok.NonNull;
 import org.bukkit.OfflinePlayer;
 
 /**
@@ -24,7 +23,7 @@ public class V1YamlClaimLineParser implements YamlClaimLineParser {
 
     private final ClaimExecutor claimExecutor;
 
-    public V1YamlClaimLineParser(@NonNull ClaimExecutor claimExecutor) {
+    public V1YamlClaimLineParser(ClaimExecutor claimExecutor) {
         this.claimExecutor = claimExecutor;
     }
 

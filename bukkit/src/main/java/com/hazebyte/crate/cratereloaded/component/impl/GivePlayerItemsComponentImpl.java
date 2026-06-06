@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import javax.inject.Inject;
-import lombok.NonNull;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -32,7 +31,7 @@ public class GivePlayerItemsComponentImpl implements GivePlayerItemsComponent {
     }
 
     @Override
-    public Set<GiveItemExecutorResult> giveItems(@NonNull List<ItemStack> items, @NonNull Player player) {
+    public Set<GiveItemExecutorResult> giveItems(List<ItemStack> items, Player player) {
         Set<GiveItemExecutorResult> result = new HashSet<>();
         for (ItemStack item : items) {
             Optional<ItemStack> leftOverOptional = ItemCalculatorUtil.putItemsIntoInventory(player, item);

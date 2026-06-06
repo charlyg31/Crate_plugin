@@ -14,15 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import lombok.NonNull;
 
 public class InventoryMenusV2 extends InventoryV2 {
 
-    public static <T extends InventoryButtonV2> Map<Integer, InventoryButtonV2> toMap(@NonNull List<T> list) {
+    public static <T extends InventoryButtonV2> Map<Integer, InventoryButtonV2> toMap(List<T> list) {
         return IntStream.range(0, list.size()).boxed().collect(Collectors.toMap(i -> i, i -> list.get(i)));
     }
 
-    public static InventoryV2 getCrateAdminMenu(@NonNull CrateV2 crateV2) {
+    public static InventoryV2 getCrateAdminMenu(CrateV2 crateV2) {
         return InventoryV2.builder()
                 .title(getValidatedTitle(crateV2.getCrateName()))
                 .inventorySize(THREE_ROWS)
@@ -37,7 +36,7 @@ public class InventoryMenusV2 extends InventoryV2 {
                 .build();
     }
 
-    public static InventoryV2 getListCratesAdminMenu(@NonNull List<CrateV2> crateV2) {
+    public static InventoryV2 getListCratesAdminMenu(List<CrateV2> crateV2) {
         Map<Integer, InventoryButtonV2> buttons = toMap(crateV2.stream()
                 .map(InventoryButtonsV2::createCrateAdminPageButton)
                 .limit(MAX_INVENTORY_SIZE_WITH_NAV)
@@ -50,7 +49,7 @@ public class InventoryMenusV2 extends InventoryV2 {
                 .build();
     }
 
-    public static InventoryV2 getListCrateRewardsMenu(@NonNull CrateV2 crateV2) {
+    public static InventoryV2 getListCrateRewardsMenu(CrateV2 crateV2) {
         Map<Integer, InventoryButtonV2> buttons = toMap(crateV2.getRewards().stream()
                 .limit(MAX_INVENTORY_SIZE_WITH_NAV)
                 .map(InventoryButtonsV2::createExecuteRewardButton)

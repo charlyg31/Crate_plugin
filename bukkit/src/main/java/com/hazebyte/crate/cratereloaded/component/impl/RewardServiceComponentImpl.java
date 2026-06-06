@@ -7,17 +7,16 @@ import com.hazebyte.utils.collection.WeightedCollection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import lombok.NonNull;
 
 public class RewardServiceComponentImpl implements RewardServiceComponent {
 
     @Override
-    public List<Reward> createPrizePool(@NonNull List<Reward> rewards, @NonNull List<Predicate<Reward>> rules) {
+    public List<Reward> createPrizePool(List<Reward> rewards, List<Predicate<Reward>> rules) {
         return applyPredicateOnList(rewards, rules);
     }
 
     @Override
-    public Reward generatePrize(@NonNull List<Reward> prizePool) {
+    public Reward generatePrize(List<Reward> prizePool) {
         WeightedCollection<Reward> rewards = new WeightedCollection<>();
         for (Reward item : prizePool) {
             rewards.add(item.getChance(), item);
@@ -26,12 +25,12 @@ public class RewardServiceComponentImpl implements RewardServiceComponent {
     }
 
     @Override
-    public List<RewardV2> createPrizePoolV2(@NonNull List<RewardV2> rewards, @NonNull List<Predicate<RewardV2>> rules) {
+    public List<RewardV2> createPrizePoolV2(List<RewardV2> rewards, List<Predicate<RewardV2>> rules) {
         return applyPredicateOnList(rewards, rules);
     }
 
     @Override
-    public RewardV2 generatePrizeV2(@NonNull List<RewardV2> rewards) {
+    public RewardV2 generatePrizeV2(List<RewardV2> rewards) {
         WeightedCollection<RewardV2> rewardsV2 = new WeightedCollection<>();
         for (RewardV2 item : rewards) {
             rewardsV2.add(item.getChance(), item);

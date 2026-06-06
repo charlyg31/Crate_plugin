@@ -4,15 +4,14 @@ import com.hazebyte.crate.api.crate.reward.Reward;
 import com.hazebyte.crate.cratereloaded.model.RewardV2;
 import java.util.List;
 import java.util.function.Predicate;
-import lombok.NonNull;
 
 public interface RewardServiceComponent {
 
-    List<Reward> createPrizePool(@NonNull List<Reward> rewards, @NonNull List<Predicate<Reward>> rules);
+    List<Reward> createPrizePool(List<Reward> rewards, List<Predicate<Reward>> rules);
 
-    Reward generatePrize(@NonNull List<Reward> rewards);
+    Reward generatePrize(List<Reward> rewards);
 
-    List<RewardV2> createPrizePoolV2(@NonNull List<RewardV2> rewards, @NonNull List<Predicate<RewardV2>> rules);
+    List<RewardV2> createPrizePoolV2(List<RewardV2> rewards, List<Predicate<RewardV2>> rules);
 
-    RewardV2 generatePrizeV2(@NonNull List<RewardV2> rewards);
+    RewardV2 generatePrizeV2(List<RewardV2> rewards);
 }

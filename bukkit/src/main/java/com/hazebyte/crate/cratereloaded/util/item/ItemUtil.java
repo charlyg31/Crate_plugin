@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import lombok.NonNull;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -40,7 +39,7 @@ public class ItemUtil extends ItemHelper {
 
     private ItemUtil() {}
 
-    public static Optional<Object> getType(@NonNull Material material) {
+    public static Optional<Object> getType(Material material) {
         if (methodCache.containsKey(GET_KEY)) {
             Method method = methodCache.get(GET_KEY);
 

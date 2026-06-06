@@ -5,7 +5,6 @@ import com.hazebyte.crate.api.crate.CrateType;
 import com.hazebyte.crate.api.crate.EndAnimationType;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.NonNull;
 
 public class TypeTranslator {
 
@@ -30,7 +29,7 @@ public class TypeTranslator {
         END_ANIMATION_TYPE_MAP.put("BLANK", EndAnimationType.BLANK);
     }
 
-    public static CrateType translateCrate(@NonNull final String name) {
+    public static CrateType translateCrate(final String name) {
         if (CRATE_TYPE_MAPPING.containsKey(name.toUpperCase())) {
             return CRATE_TYPE_MAPPING.get(name.toUpperCase());
         }
@@ -44,7 +43,7 @@ public class TypeTranslator {
         throw new IllegalArgumentException(String.format("Unable to find crateType, [%s]", name));
     }
 
-    public static AnimationType translateAnimation(@NonNull final String name) {
+    public static AnimationType translateAnimation(final String name) {
         try {
             return AnimationType.valueOf(name.toUpperCase());
         } catch (Exception ignored) {

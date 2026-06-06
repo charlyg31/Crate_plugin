@@ -2,51 +2,116 @@ package com.hazebyte.crate.cratereloaded.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
 import org.bukkit.inventory.ItemStack;
 
-@Data
-@Builder(toBuilder = true)
-@AllArgsConstructor
 public class RewardV2 {
-    @NonNull
-    @Builder.Default
-    Optional<ItemStack> displayItem = Optional.empty();
+    private Optional<ItemStack> displayItem;
+    private double chance;
+    private List<ItemStack> items;
+    private List<String> commands;
+    private List<String> exclusivePermissions;
+    private List<String> inclusivePermissions;
+    private List<String> broadcastMessage;
+    private List<String> openMessage;
+    private boolean constant;
+    private boolean unique;
 
-    @Builder.Default
-    double chance = 0.0;
+    public RewardV2() {
+        this.displayItem = Optional.empty();
+        this.chance = 0.0;
+        this.items = Collections.emptyList();
+        this.commands = Collections.emptyList();
+        this.exclusivePermissions = Collections.emptyList();
+        this.inclusivePermissions = Collections.emptyList();
+        this.broadcastMessage = Collections.emptyList();
+        this.openMessage = Collections.emptyList();
+    }
 
-    @NonNull
-    @Builder.Default
-    List<ItemStack> items = Collections.emptyList();
+    public RewardV2(Optional<ItemStack> displayItem, double chance, List<ItemStack> items,
+                    List<String> commands, List<String> exclusivePermissions, List<String> inclusivePermissions,
+                    List<String> broadcastMessage, List<String> openMessage, boolean constant, boolean unique) {
+        this.displayItem = displayItem != null ? displayItem : Optional.empty();
+        this.chance = chance;
+        this.items = items != null ? items : Collections.emptyList();
+        this.commands = commands != null ? commands : Collections.emptyList();
+        this.exclusivePermissions = exclusivePermissions != null ? exclusivePermissions : Collections.emptyList();
+        this.inclusivePermissions = inclusivePermissions != null ? inclusivePermissions : Collections.emptyList();
+        this.broadcastMessage = broadcastMessage != null ? broadcastMessage : Collections.emptyList();
+        this.openMessage = openMessage != null ? openMessage : Collections.emptyList();
+        this.constant = constant;
+        this.unique = unique;
+    }
 
-    @NonNull
-    @Builder.Default
-    List<String> commands = Collections.emptyList();
+    public static Builder builder() { return new Builder(); }
 
-    @NonNull
-    @Builder.Default
-    List<String> exclusivePermissions = Collections.emptyList();
+    public static class Builder {
+        private Optional<ItemStack> displayItem = Optional.empty();
+        private double chance = 0.0;
+        private List<ItemStack> items = Collections.emptyList();
+        private List<String> commands = Collections.emptyList();
+        private List<String> exclusivePermissions = Collections.emptyList();
+        private List<String> inclusivePermissions = Collections.emptyList();
+        private List<String> broadcastMessage = Collections.emptyList();
+        private List<String> openMessage = Collections.emptyList();
+        private boolean constant = false;
+        private boolean unique = false;
 
-    @NonNull
-    @Builder.Default
-    List<String> inclusivePermissions = Collections.emptyList();
+        public Builder displayItem(Optional<ItemStack> v) { this.displayItem = v; return this; }
+        public Builder chance(double v) { this.chance = v; return this; }
+        public Builder items(List<ItemStack> v) { this.items = v; return this; }
+        public Builder commands(List<String> v) { this.commands = v; return this; }
+        public Builder exclusivePermissions(List<String> v) { this.exclusivePermissions = v; return this; }
+        public Builder inclusivePermissions(List<String> v) { this.inclusivePermissions = v; return this; }
+        public Builder broadcastMessage(List<String> v) { this.broadcastMessage = v; return this; }
+        public Builder openMessage(List<String> v) { this.openMessage = v; return this; }
+        public Builder constant(boolean v) { this.constant = v; return this; }
+        public Builder unique(boolean v) { this.unique = v; return this; }
+        public RewardV2 build() {
+            return new RewardV2(displayItem, chance, items, commands, exclusivePermissions,
+                    inclusivePermissions, broadcastMessage, openMessage, constant, unique);
+        }
+    }
 
-    @NonNull
-    @Builder.Default
-    List<String> broadcastMessage = Collections.emptyList();
+    public Builder toBuilder() {
+        return new Builder().displayItem(displayItem).chance(chance).items(items).commands(commands)
+                .exclusivePermissions(exclusivePermissions).inclusivePermissions(inclusivePermissions)
+                .broadcastMessage(broadcastMessage).openMessage(openMessage).constant(constant).unique(unique);
+    }
 
-    @NonNull
-    @Builder.Default
-    List<String> openMessage = Collections.emptyList();
+    public Optional<ItemStack> getDisplayItem() { return displayItem; }
+    public double getChance() { return chance; }
+    public List<ItemStack> getItems() { return items; }
+    public List<String> getCommands() { return commands; }
+    public List<String> getExclusivePermissions() { return exclusivePermissions; }
+    public List<String> getInclusivePermissions() { return inclusivePermissions; }
+    public List<String> getBroadcastMessage() { return broadcastMessage; }
+    public List<String> getOpenMessage() { return openMessage; }
+    public boolean isConstant() { return constant; }
+    public boolean isUnique() { return unique; }
+    public void setDisplayItem(Optional<ItemStack> v) { this.displayItem = v; }
+    public void setChance(double v) { this.chance = v; }
+    public void setItems(List<ItemStack> v) { this.items = v; }
+    public void setCommands(List<String> v) { this.commands = v; }
+    public void setExclusivePermissions(List<String> v) { this.exclusivePermissions = v; }
+    public void setInclusivePermissions(List<String> v) { this.inclusivePermissions = v; }
+    public void setBroadcastMessage(List<String> v) { this.broadcastMessage = v; }
+    public void setOpenMessage(List<String> v) { this.openMessage = v; }
+    public void setConstant(boolean v) { this.constant = v; }
+    public void setUnique(boolean v) { this.unique = v; }
 
-    @Builder.Default
-    boolean constant = false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RewardV2)) return false;
+        RewardV2 r = (RewardV2) o;
+        return Double.compare(r.chance, chance) == 0 && constant == r.constant && unique == r.unique;
+    }
 
-    @Builder.Default
-    boolean unique = false;
+    @Override
+    public int hashCode() { return Objects.hash(chance, constant, unique); }
+
+    @Override
+    public String toString() { return "RewardV2(chance=" + chance + ")"; }
 }

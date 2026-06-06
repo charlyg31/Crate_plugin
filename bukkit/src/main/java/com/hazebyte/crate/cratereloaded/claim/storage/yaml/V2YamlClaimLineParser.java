@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -25,7 +24,7 @@ public class V2YamlClaimLineParser implements YamlClaimLineParser {
     private final Pattern UUID_REGEX = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
     private final ClaimExecutor claimExecutor;
 
-    public V2YamlClaimLineParser(@NonNull ClaimExecutor claimExecutor) {
+    public V2YamlClaimLineParser(ClaimExecutor claimExecutor) {
         this.claimExecutor = claimExecutor;
     }
 

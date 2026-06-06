@@ -7,14 +7,13 @@ import com.hazebyte.crate.cratereloaded.crate.animationV2.events.AnimationCloseE
 import com.hazebyte.crate.cratereloaded.crate.animationV2.events.AnimationFrameChangeEvent;
 import com.hazebyte.crate.cratereloaded.menuV2.InventoryButtonV2;
 import com.hazebyte.crate.cratereloaded.menuV2.InventoryV2;
-import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 class AnimationExecution extends BukkitRunnable {
 
-    @NonNull
+    
     private final Animation animation;
 
     private final long RUNNABLE_PERIOD = 1L;
@@ -24,7 +23,7 @@ class AnimationExecution extends BukkitRunnable {
     private long elapsedTimeInTicks = 0L;
     private long lastFrameChangeInTick = 0L;
 
-    public AnimationExecution(@NonNull Animation animation) {
+    public AnimationExecution(Animation animation) {
         this.animation = animation;
 
         String name = animation.getCrateV2().getDisplayName().orElse("Crate Animation");

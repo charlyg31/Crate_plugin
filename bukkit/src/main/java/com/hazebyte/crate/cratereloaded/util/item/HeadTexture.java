@@ -6,7 +6,6 @@ import com.hazebyte.crate.cratereloaded.CorePlugin;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import lombok.NonNull;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Constructor;
@@ -31,7 +30,7 @@ public class HeadTexture {
         }
     }
 
-    public static SkullMeta applyToMeta(@NonNull SkullMeta meta, @NonNull String base64) {
+    public static SkullMeta applyToMeta(SkullMeta meta, String base64) {
         GameProfile profile = new GameProfile(UUID.randomUUID(), "");
         Property property = new Property("textures", base64);
         profile.getProperties().put("textures", property);
@@ -44,7 +43,7 @@ public class HeadTexture {
         return meta;
     }
 
-    private static void setProfileToMeta_gt_1_16(@NonNull SkullMeta skullMeta, @NonNull GameProfile gameProfile) {
+    private static void setProfileToMeta_gt_1_16(SkullMeta skullMeta, GameProfile gameProfile) {
         Method method;
         try {
             method = skullMeta
@@ -65,7 +64,7 @@ public class HeadTexture {
         }
     }
 
-    private static void setProfileToMeta_lte_1_16(@NonNull SkullMeta skullMeta, @NonNull GameProfile gameProfile) {
+    private static void setProfileToMeta_lte_1_16(SkullMeta skullMeta, GameProfile gameProfile) {
         Field field;
         try {
             field = skullMeta.getClass().getDeclaredField("profile");

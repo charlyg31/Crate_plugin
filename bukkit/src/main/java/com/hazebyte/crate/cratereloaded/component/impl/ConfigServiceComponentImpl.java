@@ -15,15 +15,14 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 import javax.inject.Inject;
-import lombok.NonNull;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ConfigServiceComponentImpl implements ConfigServiceComponent {
 
-    @NonNull
+    
     private final JavaPlugin plugin;
 
-    @NonNull
+    
     private final Trie<Config> configs;
 
     @Inject

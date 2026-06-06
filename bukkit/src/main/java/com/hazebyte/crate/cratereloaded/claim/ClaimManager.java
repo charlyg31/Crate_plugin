@@ -18,7 +18,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -31,20 +30,20 @@ public class ClaimManager implements ClaimRegistrar {
     private final ClaimExecutor claimExecutor;
     private final PluginSettingComponent settings;
 
-    public ClaimManager(@NonNull JavaPlugin plugin, @NonNull ClaimExecutor claimExecutor, @NonNull PluginSettingComponent settings) {
+    public ClaimManager(JavaPlugin plugin, ClaimExecutor claimExecutor, PluginSettingComponent settings) {
         this.plugin = plugin;
         this.claimStorage = new YamlClaimStorage(plugin, claimExecutor);
         this.claimExecutor = claimExecutor;
         this.settings = settings;
     }
 
-    public CompletableFuture<Claim> addClaim(@NonNull Claim claim) {
+    public CompletableFuture<Claim> addClaim(Claim claim) {
         plugin.getLogger().finer("Claim: add " + claim.getOwner().getUniqueId());
         return claimStorage.saveClaim(claim).thenApply(v -> claim);
     }
 
     @Override
-    public CompletableFuture<Claim> addClaim(@NonNull OfflinePlayer player, List<Reward> rewards) {
+    public CompletableFuture<Claim> addClaim(OfflinePlayer player, List<Reward> rewards) {
         CrateClaim claim = CrateClaim.builder()
                 .owner(player)
                 .rewards(rewards)
@@ -54,43 +53,43 @@ public class ClaimManager implements ClaimRegistrar {
     }
 
     @Override
-    public CompletableFuture<Claim> addClaim(@NonNull OfflinePlayer player, Crate crate, int amount) {
+    public CompletableFuture<Claim> addClaim(OfflinePlayer player, Crate crate, int amount) {
         Reward reward = RewardFactory.createReward(crate, player, amount);
         return addClaim(player, Collections.singletonList(reward));
     }
 
     @Override
-    public CompletableFuture<Void> removeClaim(@NonNull Claim claim) {
+    public CompletableFuture<Void> removeClaim(Claim claim) {
         return claimStorage.deleteClaim(claim);
     }
 
     @Override
-    public CompletableFuture<Optional<Claim>> getClaim(@NonNull OfflinePlayer player, @NonNull UUID uuid) {
+    public CompletableFuture<Optional<Claim>> getClaim(OfflinePlayer player, UUID uuid) {
         return getClaims(player).thenApply(claims -> claims.stream()
                 .filter(claim -> uuid.equals(claim.getId()))
                 .findFirst());
     }
 
     @Override
-    public CompletableFuture<Collection<Claim>> getClaim(@NonNull OfflinePlayer player, @NonNull long timestamp) {
+    public CompletableFuture<Collection<Claim>> getClaim(OfflinePlayer player, long timestamp) {
         return getClaims(player).thenApply(claims -> claims.stream()
                 .filter(claim -> claim.getTimestamp() == timestamp)
                 .collect(Collectors.toList()));
     }
 
     @Override
-    public CompletableFuture<Collection<Claim>> getClaims(@NonNull OfflinePlayer player) {
+    public CompletableFuture<Collection<Claim>> getClaims(OfflinePlayer player) {
         return claimStorage.getClaims(player);
     }
 
     @Override
-    public void openInventory(@NonNull Player player) {
+    public void openInventory(Player player) {
         plugin.getLogger().finer("Claim: open " + player.getUniqueId());
         spoofInventory(player, player);
     }
 
     @Override
-    public void spoofInventory(@NonNull OfflinePlayer player, @NonNull Player viewer) {
+    public void spoofInventory(OfflinePlayer player, Player viewer) {
         getClaims(player)
                 .thenAccept(claims -> {
                     plugin.getLogger().finer("Claim: spoof " + player.getUniqueId());

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import lombok.NonNull;
-import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -13,8 +11,9 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 
-@Log
 public class InventoryManager {
+    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("InventoryManager");
+
 
     private final Map<Inventory, InventoryV2> inventoryMap;
     private final Map<InventoryV2, Inventory> reverseInventoryMap;
@@ -24,7 +23,7 @@ public class InventoryManager {
         this.reverseInventoryMap = new HashMap<>();
     }
 
-    public void openInventory(@NonNull InventoryV2 inventoryV2, @NonNull Player player) {
+    public void openInventory(InventoryV2 inventoryV2, Player player) {
         final Optional<Inventory> optional = Optional.ofNullable(reverseInventoryMap.get(inventoryV2));
         if (optional.isPresent()) {
             player.openInventory(optional.get());

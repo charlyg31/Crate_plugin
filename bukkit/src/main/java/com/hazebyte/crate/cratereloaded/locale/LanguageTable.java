@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import org.jetbrains.annotations.NotNull;
 
 public class LanguageTable {
 
@@ -26,7 +25,7 @@ public class LanguageTable {
         return messages.get(key);
     }
 
-    public void addMessages(@NotNull Map<MessageKey, String> messages) {
+    public void addMessages(Map<MessageKey, String> messages) {
         this.messages.putAll(messages);
     }
 

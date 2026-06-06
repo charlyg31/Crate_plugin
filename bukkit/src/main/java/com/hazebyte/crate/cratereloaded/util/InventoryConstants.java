@@ -1,6 +1,5 @@
 package com.hazebyte.crate.cratereloaded.util;
 
-import lombok.NonNull;
 
 public class InventoryConstants {
 
@@ -17,7 +16,7 @@ public class InventoryConstants {
     public static int SLOT_29 = 29; // Accept button position in confirmation menu
     public static int SLOT_33 = 33; // Decline button position in confirmation menu
 
-    public static String getValidatedTitle(@NonNull String title) {
+    public static String getValidatedTitle(String title) {
         return title.substring(0, Math.min(title.length(), MAX_TITLE_LENGTH));
     }
 }

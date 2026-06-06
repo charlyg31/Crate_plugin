@@ -13,7 +13,6 @@ import com.hazebyte.crate.logger.JSONLogRecord;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONArray;
@@ -26,9 +25,9 @@ public class ClaimExecutor implements Function<Claim, Boolean> {
     private final Logger logger;
 
     public ClaimExecutor(
-            @NonNull CorePlugin plugin,
-            @NonNull OpenCrateComponent openCrateComponent,
-            @NonNull Logger logger) {
+            CorePlugin plugin,
+            OpenCrateComponent openCrateComponent,
+            Logger logger) {
         this.plugin = plugin;
         this.openCrateComponent = openCrateComponent;
         this.logger = logger;

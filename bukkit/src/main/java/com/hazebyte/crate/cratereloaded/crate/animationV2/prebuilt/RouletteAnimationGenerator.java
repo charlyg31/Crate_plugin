@@ -8,8 +8,6 @@ import com.hazebyte.crate.cratereloaded.model.RewardV2;
 import com.hazebyte.crate.cratereloaded.util.RandomGlassPaneGenerator;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.NonNull;
-import lombok.val;
 import org.bukkit.entity.Player;
 
 public class RouletteAnimationGenerator implements AnimationGenerator {
@@ -19,8 +17,8 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
     private RewardV2 winningReward;
 
     @Override
-    public @NonNull Animation createAnimation(@NonNull Player player, @NonNull CrateV2 crateV2) {
-        val frames = createAnimationFrames(player, crateV2);
+    public Animation createAnimation(Player player, CrateV2 crateV2) {
+        var frames = createAnimationFrames(player, crateV2);
         return Animation.builder()
                 .player(player)
                 .crateV2(crateV2)
@@ -35,9 +33,9 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
     }
 
     private List<AnimationFrame> createAnimationFrames(Player player, CrateV2 crateV2) {
-        val frames = new ArrayList<AnimationFrame>();
+        var frames = new ArrayList<AnimationFrame>();
         for (int i = 0; i <= 20; i++) {
-            val rewardV2 = CorePlugin.getJavaPluginComponent()
+            var rewardV2 = CorePlugin.getJavaPluginComponent()
                     .getGenerateCratePrizeComponent()
                     .generateRewardForAnimation(player, crateV2);
             long length = durationFormula(i);
@@ -53,7 +51,7 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
     }
 
     private AnimationFrame createAnimationFrame(RewardV2 rewardV2, long frameLength) {
-        val animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
+        var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         for (int i = 0; i < 27; i++) {
             if (i == MIDDLE_SLOT) {
                 animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().get());
@@ -65,8 +63,8 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
     }
 
     private AnimationFrame createWinningFrame(RewardV2 rewardV2, long frameLength) {
-        val animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
-        val staticPane = RandomGlassPaneGenerator.getRandomPane();
+        var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
+        var staticPane = RandomGlassPaneGenerator.getRandomPane();
         for (int i = 0; i < 27; i++) {
             if (i == MIDDLE_SLOT) {
                 animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().get());

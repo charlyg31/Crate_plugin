@@ -3,14 +3,14 @@ package com.hazebyte.crate.cratereloaded.menuV2;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.extern.java.Log;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 
-@Log
 public class InventoryHistoryManager {
+    private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger("InventoryHistoryManager");
+
 
     private Map<Player, Deque<InventoryV2>> inventoryDeque;
 

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
-import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,7 +37,7 @@ public class ExportComponentImpl implements ExportComponent {
     }
 
     @Override
-    public void exportItem(@NonNull Player player) {
+    public void exportItem(Player player) {
         ItemStack item = PlayerUtil.getItemInHand(player);
         String string = ItemParser.serialize(item);
         Messenger.tell(player, "This information has been copied over to the console.");
@@ -47,7 +46,7 @@ public class ExportComponentImpl implements ExportComponent {
     }
 
     @Override
-    public void exportCrate(@NonNull Player player, String fileName, String sort) {
+    public void exportCrate(Player player, String fileName, String sort) {
         if (!settings.isPremiumUserOtherwiseLog(java.util.Optional.of(player), PLUGIN_EXPORT_FEATURE_NAME)) {
             return;
         }

@@ -27,7 +27,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import javax.inject.Inject;
-import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -55,11 +54,11 @@ public class GiveCrateComponentImpl implements GiveCrateComponent {
 
     @Override
     public void giveCrate(
-            @NonNull CommandSender sender,
-            @NonNull OfflinePlayer offlinePlayer,
-            @NonNull Crate crate,
-            @NonNull Integer amount,
-            @NonNull boolean sendToClaim) {
+            CommandSender sender,
+            OfflinePlayer offlinePlayer,
+            Crate crate,
+            Integer amount,
+            boolean sendToClaim) {
         Player player = offlinePlayer.getPlayer();
 
         CrateGiveEvent event = new CrateGiveEvent(sender, offlinePlayer, crate, amount, false);
@@ -141,7 +140,7 @@ public class GiveCrateComponentImpl implements GiveCrateComponent {
     }
 
     private Optional<CompletableFuture<Claim>> giveCrateToOfflinePlayer(
-            @NonNull OfflinePlayer offlinePlayer, @NonNull Crate crate, @NonNull int amount) {
+            OfflinePlayer offlinePlayer, Crate crate, int amount) {
         ClaimManager claimManager = plugin.getClaimManager();
         Reward crateAsReward = RewardFactory.createReward(crate, offlinePlayer, amount);
         CrateClaim claim = CrateClaim.builder()
@@ -160,7 +159,7 @@ public class GiveCrateComponentImpl implements GiveCrateComponent {
 
     @Override
     public Set<GiveItemExecutorResult> giveCrateToOnlinePlayer(
-            @NonNull Player player, @NonNull Crate crate, @NonNull int amount) {
+            Player player, Crate crate, int amount) {
         ItemStack item = crate.getItem().clone();
         item.setAmount(amount);
         List<ItemStack> items = Arrays.asList(item);
@@ -168,7 +167,7 @@ public class GiveCrateComponentImpl implements GiveCrateComponent {
     }
 
     @Override
-    public void giveCrateToAllOnlinePlayers(@NonNull CommandSender sender, @NonNull Crate crate, Integer amount) {
+    public void giveCrateToAllOnlinePlayers(CommandSender sender, Crate crate, Integer amount) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             CrateGiveEvent event = new CrateGiveEvent(sender, player, crate, amount, true);
             Bukkit.getPluginManager().callEvent(event);

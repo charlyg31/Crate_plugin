@@ -4,11 +4,10 @@ import com.google.common.base.Strings;
 import com.hazebyte.crate.cratereloaded.CorePlugin;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class PlayerFormat extends Format {
 
-    public PlayerFormat(@NotNull String message) {
+    public PlayerFormat(String message) {
         super(message);
     }
 
@@ -23,7 +22,7 @@ public class PlayerFormat extends Format {
         return message;
     }
 
-    public String format(@NotNull Player player) {
+    public String format(Player player) {
         double balance =
                 CorePlugin.getPlugin().getEconomyProvider().getBalance(player).balance();
         String name = !Strings.isNullOrEmpty(player.getName())
@@ -36,7 +35,7 @@ public class PlayerFormat extends Format {
         return message;
     }
 
-    public String format(@NotNull OfflinePlayer offlinePlayer) {
+    public String format(OfflinePlayer offlinePlayer) {
         message = message.replace("{player}", offlinePlayer.getName());
         return message;
     }

@@ -1,11 +1,10 @@
 package com.hazebyte.crate.cratereloaded.util.format;
 
 import com.hazebyte.crate.api.crate.Crate;
-import org.jetbrains.annotations.NotNull;
 
 public class CrateFormat extends Format {
 
-    public CrateFormat(@NotNull String message) {
+    public CrateFormat(String message) {
         super(message);
     }
 
@@ -17,7 +16,7 @@ public class CrateFormat extends Format {
         return message;
     }
 
-    public String format(@NotNull Crate crate) {
+    public String format(Crate crate) {
         message = message.replace("{crate-name}", crate.getDisplayName())
                 .replace("{crate}", crate.getCrateName())
                 .replace("{type}", crate.getType().name())

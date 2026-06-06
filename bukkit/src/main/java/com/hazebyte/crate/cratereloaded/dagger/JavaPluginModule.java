@@ -7,7 +7,6 @@ import com.hazebyte.crate.exception.ExceptionHandler;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,19 +21,19 @@ public class JavaPluginModule {
 
     @Provides
     @Singleton
-    CorePlugin provideCorePlugin(@NonNull JavaPlugin javaPlugin) {
+    CorePlugin provideCorePlugin(JavaPlugin javaPlugin) {
         return (CorePlugin) javaPlugin;
     }
 
     @Provides
     @Singleton
-    ServerVersion provideCurrentServerVersion(@NonNull CorePlugin plugin) {
+    ServerVersion provideCurrentServerVersion(CorePlugin plugin) {
         return plugin.getServerVersion();
     }
 
     @Provides
     @Singleton
-    ExceptionHandler provideExceptionHandler(@NonNull JavaPlugin plugin) {
+    ExceptionHandler provideExceptionHandler(JavaPlugin plugin) {
         return new ExceptionHandler(plugin.getLogger());
     }
 }

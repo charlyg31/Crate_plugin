@@ -11,7 +11,6 @@ import com.hazebyte.crate.cratereloaded.model.CrateV2;
 import com.hazebyte.crate.cratereloaded.model.RewardV2;
 import com.hazebyte.util.Mat;
 import java.util.function.Function;
-import lombok.NonNull;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +31,7 @@ public class InventoryButtonsV2 {
     }
 
     public static InventoryButtonV2 createPageNavigationButton(
-            @NonNull InventoryV2 inventoryV2, @NonNull Function<Player, ItemStack> itemStackCreator) {
+            InventoryV2 inventoryV2, Function<Player, ItemStack> itemStackCreator) {
         return InventoryButtonV2.builder()
                 .itemCreator(player -> itemStackCreator.apply(player))
                 .clickHandler(event -> CorePlugin.getJavaPluginComponent()
@@ -41,13 +40,13 @@ public class InventoryButtonsV2 {
                 .build();
     }
 
-    public static InventoryButtonV2 createPreviousPageButton(@NonNull InventoryV2 inventoryV2) {
+    public static InventoryButtonV2 createPreviousPageButton(InventoryV2 inventoryV2) {
         return createPageNavigationButton(inventoryV2, (player) -> new ItemBuilder(Mat.OAK_FENCE_GATE.toMaterial())
                 .displayName(String.format(PREVIOUS_PAGE_BUTTON_NAME_FORMAT, ChatColor.YELLOW))
                 .asItemStack());
     }
 
-    public static InventoryButtonV2 createNextPageButton(@NonNull InventoryV2 inventoryV2) {
+    public static InventoryButtonV2 createNextPageButton(InventoryV2 inventoryV2) {
         return createPageNavigationButton(inventoryV2, (player) -> new ItemBuilder(Mat.OAK_FENCE_GATE.toMaterial())
                 .displayName(String.format(NEXT_PAGE_BUTTON_NAME_FORMAT, ChatColor.GREEN))
                 .asItemStack());
@@ -61,7 +60,7 @@ public class InventoryButtonsV2 {
                 .build();
     }
 
-    public static InventoryButtonV2 createCrateAdminPageButton(@NonNull CrateV2 crateV2) {
+    public static InventoryButtonV2 createCrateAdminPageButton(CrateV2 crateV2) {
         InventoryV2 inventoryV2 = getCrateAdminMenu(crateV2);
         Function<Player, ItemStack> itemCreator = (player) -> ItemBuilder.of(
                         crateV2.getDisplayItem().orElse(crateV2.getItem()).clone())
@@ -71,7 +70,7 @@ public class InventoryButtonsV2 {
         return createPageNavigationButton(inventoryV2, itemCreator);
     }
 
-    public static InventoryButtonV2 createListCrateRewardsAdminPageButton(@NonNull CrateV2 crateV2) {
+    public static InventoryButtonV2 createListCrateRewardsAdminPageButton(CrateV2 crateV2) {
         InventoryV2 inventoryV2 = getListCrateRewardsMenu(crateV2);
         Function<Player, ItemStack> itemCreator = (player) -> ItemBuilder.of(
                         crateV2.getDisplayItem().orElse(crateV2.getItem()).clone())
@@ -81,7 +80,7 @@ public class InventoryButtonsV2 {
         return createPageNavigationButton(inventoryV2, itemCreator);
     }
 
-    public static InventoryButtonV2 createExecuteRewardButton(@NonNull RewardV2 rewardV2) {
+    public static InventoryButtonV2 createExecuteRewardButton(RewardV2 rewardV2) {
         Function<Player, ItemStack> itemCreator =
                 player -> ItemBuilder.of(rewardV2.getDisplayItem().orElse(createDefaultRewardItem(rewardV2)))
                         .asItemStack();
@@ -94,7 +93,7 @@ public class InventoryButtonsV2 {
                 .build();
     }
 
-    private static ItemStack createDefaultRewardItem(@NonNull RewardV2 rewardV2) {
+    private static ItemStack createDefaultRewardItem(RewardV2 rewardV2) {
         return new ItemBuilder(Mat.CHEST.toMaterial())
                 .displayName(String.format("%s[PLUGIN] Display item does not exist.", ChatColor.RED))
                 .lore("&a", String.format("%s[PLUGIN] Click to execute the reward.", ChatColor.GREEN))
