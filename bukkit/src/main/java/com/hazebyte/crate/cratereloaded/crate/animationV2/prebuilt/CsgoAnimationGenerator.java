@@ -49,8 +49,10 @@ public class CsgoAnimationGenerator implements AnimationGenerator {
             }
         }
 
-        var endFrame = createEndAnimationFrame(winningReward, 50L);
-        frames.add(endFrame);
+        if (winningReward != null) {
+            var endFrame = createEndAnimationFrame(winningReward, 50L);
+            frames.add(endFrame);
+        }
         return frames;
     }
 

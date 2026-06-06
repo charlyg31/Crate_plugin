@@ -352,7 +352,7 @@ public class CrateHandler implements CrateRegistrar {
         }
 
         ItemStack itemToRemove = getObjectFromSetting(settings, "itemToRemove", PlayerUtil.getItemInHand(player));
-        Boolean shouldRemoveItem = getObjectFromSetting(settings, "shouldRemoveItem", new Boolean(true));
+        Boolean shouldRemoveItem = getObjectFromSetting(settings, "shouldRemoveItem", Boolean.TRUE);
 
         // Get CrateV2 from storage (primary)
         CrateV2 crateV2 = getCrateV2(crate.getCrateName());

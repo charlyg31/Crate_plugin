@@ -30,7 +30,7 @@ public class InventoryManagerListener implements Listener {
         inventoryHistoryManager.handleOpen(event);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onInventoryClose(InventoryCloseEvent event) {
         inventoryManager.handleClose(event);
         inventoryHistoryManager.handleClose(event);
