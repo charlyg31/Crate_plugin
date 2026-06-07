@@ -7,6 +7,7 @@ import com.hazebyte.crate.cratereloaded.model.CrateV2;
 import com.hazebyte.crate.cratereloaded.model.RewardV2;
 import com.hazebyte.crate.cratereloaded.util.InventoryConstants;
 import com.hazebyte.crate.cratereloaded.util.RandomGlassPaneGenerator;
+import com.hazebyte.crate.cratereloaded.util.format.ItemFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Material;
@@ -35,7 +36,8 @@ public class CsgoAnimationGenerator implements AnimationGenerator {
 
     private List<AnimationFrame> createAnimationFrames(Player player, CrateV2 crateV2) {
         var frames = new ArrayList<AnimationFrame>();
-        int numberOfFrames = 35;
+        int csgoLength = CorePlugin.getJavaPluginComponent().getPluginSettingComponent().getCSGOAnimationLength();
+        int numberOfFrames = Math.max(10, csgoLength * 5);
         for (int i = 0; i <= numberOfFrames; i++) {
             var rewardV2 = CorePlugin.getJavaPluginComponent()
                     .getGenerateCratePrizeComponent()
@@ -62,7 +64,9 @@ public class CsgoAnimationGenerator implements AnimationGenerator {
         var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         for (int i = 0; i < 27; i++) {
             if (i == 9) {
-                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)));
+                ItemStack displayItem = rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)).clone();
+                ItemFormatter.format(displayItem, rewardV2);
+                animationFrameBuilder.itemMapping(i, displayItem);
             } else if (i > 9 && i <= 17) {
                 if (currentFrames.size() > 0) {
                     AnimationFrame previousFrame = currentFrames.get(currentFrames.size() - 1);
@@ -80,7 +84,9 @@ public class CsgoAnimationGenerator implements AnimationGenerator {
         var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         for (int i = 0; i < 27; i++) {
             if (i == InventoryConstants.CENTER_SLOT_THREE_ROWS) {
-                animationFrameBuilder.itemMapping(i, rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)));
+                ItemStack displayItem = rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)).clone();
+                ItemFormatter.format(displayItem, rewardV2);
+                animationFrameBuilder.itemMapping(i, displayItem);
             } else {
                 animationFrameBuilder.itemMapping(i, RandomGlassPaneGenerator.getRandomPane());
             }
