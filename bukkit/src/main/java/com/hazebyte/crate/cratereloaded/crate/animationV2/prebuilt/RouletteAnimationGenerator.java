@@ -7,6 +7,7 @@ import com.hazebyte.crate.cratereloaded.model.CrateV2;
 import com.hazebyte.crate.cratereloaded.model.RewardV2;
 import com.hazebyte.crate.cratereloaded.util.RandomGlassPaneGenerator;
 import com.hazebyte.crate.cratereloaded.util.format.ItemFormatter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Material;
@@ -46,20 +47,20 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
 
             if (i == 20) {
                 winningReward = rewardV2;
-                frames.add(createWinningFrame(rewardV2, 40L));
+                frames.add(createWinningFrame(rewardV2, 40L, crateV2));
             } else {
-                frames.add(createAnimationFrame(rewardV2, length));
+                frames.add(createAnimationFrame(rewardV2, length, crateV2));
             }
         }
         return frames;
     }
 
-    private AnimationFrame createAnimationFrame(RewardV2 rewardV2, long frameLength) {
+    private AnimationFrame createAnimationFrame(RewardV2 rewardV2, long frameLength, CrateV2 crateV2) {
         var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         for (int i = 0; i < 27; i++) {
             if (i == MIDDLE_SLOT) {
                 ItemStack displayItem = rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)).clone();
-                ItemFormatter.format(displayItem, rewardV2);
+                replaceChancePlaceholder(displayItem, rewardV2, crateV2);
                 animationFrameBuilder.itemMapping(i, displayItem);
             } else {
                 animationFrameBuilder.itemMapping(i, RandomGlassPaneGenerator.getRandomPane());
@@ -68,18 +69,36 @@ public class RouletteAnimationGenerator implements AnimationGenerator {
         return animationFrameBuilder.build();
     }
 
-    private AnimationFrame createWinningFrame(RewardV2 rewardV2, long frameLength) {
+    private AnimationFrame createWinningFrame(RewardV2 rewardV2, long frameLength, CrateV2 crateV2) {
         var animationFrameBuilder = AnimationFrame.builder().frameLength(frameLength);
         var staticPane = RandomGlassPaneGenerator.getRandomPane();
         for (int i = 0; i < 27; i++) {
             if (i == MIDDLE_SLOT) {
                 ItemStack displayItem = rewardV2.getDisplayItem().orElse(new ItemStack(Material.STONE)).clone();
-                ItemFormatter.format(displayItem, rewardV2);
+                replaceChancePlaceholder(displayItem, rewardV2, crateV2);
                 animationFrameBuilder.itemMapping(i, displayItem);
             } else {
                 animationFrameBuilder.itemMapping(i, staticPane);
             }
         }
         return animationFrameBuilder.build();
+    }
+    private void replaceChancePlaceholder(ItemStack item, RewardV2 rewardV2, CrateV2 crateV2) {
+        double total = crateV2.getRewards().stream().mapToDouble(RewardV2::getChance).sum();
+        if (total == 0) return;
+        DecimalFormat df = new DecimalFormat(CorePlugin.getPlugin().getSettings().getDecimalFormat());
+        double pct = (rewardV2.getChance() / total) * 100;
+        String chanceStr = String.format("%s%%", df.format(pct));
+        var meta = item.getItemMeta();
+        if (meta == null) return;
+        if (meta.hasLore()) {
+            var lore = meta.getLore();
+            lore.replaceAll(s -> s.replace("{chance}", chanceStr));
+            meta.setLore(lore);
+        }
+        if (meta.hasDisplayName()) {
+            meta.setDisplayName(meta.getDisplayName().replace("{chance}", chanceStr));
+        }
+        item.setItemMeta(meta);
     }
 }
